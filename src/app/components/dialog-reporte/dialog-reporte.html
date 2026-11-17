@@ -1,0 +1,61 @@
+<div class="dialog-backdrop" role="presentation" (click)="cancelar()">
+  <div class="dialog-card" role="dialog" aria-modal="true" aria-labelledby="titulo-dialogo" (click)="$event.stopPropagation()">
+    <div class="dialog-header">
+      <div>
+        <p class="dialog-kicker">Gestión</p>
+        <h2 id="titulo-dialogo">{{ reporte ? 'Modificar reserva' : 'Nueva reserva' }}</h2>
+      </div>
+      <button type="button" class="close-button" (click)="cancelar()">×</button>
+    </div>
+
+    <form class="dialog-form" (ngSubmit)="guardarCambios()">
+      <div class="form-grid">
+        <label>
+          <span>Código</span>
+          <input type="text" [(ngModel)]="formData.codigo" name="codigo" required />
+        </label>
+
+        <label>
+          <span>Cliente</span>
+          <input type="text" [(ngModel)]="formData.cliente" name="cliente" required />
+        </label>
+
+        <label>
+          <span>Destino</span>
+          <input type="text" [(ngModel)]="formData.destino" name="destino" required />
+        </label>
+
+        <label>
+          <span>Fecha</span>
+          <input type="date" [(ngModel)]="formData.fecha" name="fecha" required />
+        </label>
+
+        <label>
+          <span>Paquete</span>
+          <input type="text" [(ngModel)]="formData.paquete" name="paquete" required />
+        </label>
+
+        <label>
+          <span>Estado</span>
+          <select [(ngModel)]="formData.estado" name="estado">
+            <option value="Confirmada">Confirmada</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Finalizada">Finalizada</option>
+          </select>
+        </label>
+
+        <label class="full-width">
+          <span>Monto</span>
+          <input type="number" min="0" step="0.01" [(ngModel)]="formData.monto" name="monto" required />
+        </label>
+      </div>
+
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">
+          {{ reporte ? 'Guardar cambios' : 'Agregar reserva' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

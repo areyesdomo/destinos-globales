@@ -1,0 +1,74 @@
+
+.encabezado {
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.contenedor-header {
+  max-width: 1200px;
+  min-height: 85px;
+  margin: auto;
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #173b63;
+  font-size: 23px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.logo strong {
+  color: #e69a24;
+}
+
+.logo-icono {
+  font-size: 35px;
+  color: #e69a24;
+}
+
+.navegacion {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.navegacion a {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 7px;
+  transition: 0.3s;
+}
+
+.btn-acerca {
+  color: #173b63;
+}
+
+.btn-acerca:hover {
+  background: #edf3f9;
+}
+
+.btn-login {
+  background: #173b63;
+  color: white;
+}
+
+.btn-login:hover {
+  background: #e69a24;
+}
+
+@media (max-width: 600px) {
+  .contenedor-header {
+    padding: 15px;
+    flex-direction: column;
+    gap: 15px;
+  }
+}

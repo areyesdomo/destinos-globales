@@ -1,0 +1,92 @@
+
+<section class="login-contenedor" id="login">
+
+  <!-- Panel izquierdo -->
+  <div class="login-imagen">
+    <div class="imagen-contenido">
+      <span class="avion">✈</span>
+      <h1>El mundo te espera</h1>
+      <p>
+        Descubre nuevos destinos y vive experiencias
+        inolvidables con Destinos Globales.
+      </p>
+    </div>
+  </div>
+
+  <!-- Formulario de acceso -->
+  <div class="login-formulario">
+
+    <div class="icono-login">✈</div>
+
+    <h2>Bienvenido</h2>
+
+    <p class="subtitulo">
+      Ingresa tus credenciales para continuar
+    </p>
+
+    <div class="campo">
+      <label for="usuario">Usuario</label>
+      <input
+        type="text"
+        id="usuario"
+        #usuario
+        placeholder="Ingrese su usuario"
+        autocomplete="username">
+    </div>
+
+    <div class="campo">
+      <label for="clave">Clave</label>
+      <input
+        type="password"
+        id="clave"
+        #clave
+        placeholder="Ingrese su contraseña"
+        autocomplete="current-password">
+    </div>
+
+    <button
+      type="button"
+      (click)="validarAcceso(usuario.value, clave.value)">
+      ACEPTAR
+    </button>
+
+    <p class="mensaje-seguridad">
+      Acceso exclusivo para usuarios autorizados
+    </p>
+
+  </div>
+
+</section>
+
+<!-- Ventana de alerta personalizada -->
+@if (mostrarAlerta) {
+  <div class="alerta-fondo" (click)="cerrarAlerta()">
+
+    <div
+      class="alerta-contenido"
+      [class.alerta-error]="tipoAlerta === 'error'"
+      (click)="$event.stopPropagation()">
+
+      <div class="alerta-icono">
+        @if (tipoAlerta === 'success') {
+          <span>✓</span>
+        } @else {
+          <span>!</span>
+        }
+      </div>
+
+      <h2>{{ tituloAlerta }}</h2>
+
+      <p>{{ mensajeAlerta }}</p>
+
+      <button
+        type="button"
+        class="btn-entendido"
+        (click)="cerrarAlerta()">
+        ENTENDIDO
+      </button>
+
+    </div>
+
+  </div>
+}

@@ -1,0 +1,51 @@
+
+.pie-pagina {
+  background: #142f4d;
+  color: white;
+  padding: 35px 25px 0;
+}
+
+.contenido-footer {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 30px;
+}
+
+.informacion-empresa h3 {
+  color: #e69a24;
+  font-size: 21px;
+}
+
+.informacion-contacto h4 {
+  color: #e69a24;
+  margin-bottom: 15px;
+}
+
+.informacion-empresa p,
+.informacion-contacto p {
+  color: #d5deea;
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.copyright {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  text-align: center;
+  padding: 15px;
+}
+
+.copyright p {
+  font-size: 13px;
+  color: #d5deea;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .contenido-footer {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}

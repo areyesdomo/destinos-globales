@@ -1,0 +1,209 @@
+<section class="reportes-page">
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Panel ejecutivo</p>
+      <h1>Reportes</h1>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-secondary">Exportar PDF</button>
+      <button class="btn btn-primary">Descargar CSV</button>
+    </div>
+  </header>
+
+  <nav class="period-tabs" aria-label="Periodos de reportes">
+    <button
+      *ngFor="let periodo of periodos"
+      type="button"
+      [class.active]="periodoActual === periodo"
+      (click)="seleccionarPeriodo(periodo)"
+    >
+      {{ periodo }}
+    </button>
+  </nav>
+
+  <section class="metrics-grid">
+    <article *ngFor="let metrica of metricas" class="metric-card" [ngClass]="metrica.accent">
+      <div class="metric-header">
+        <span class="metric-icon">{{ metrica.icon }}</span>
+        <span class="metric-trend" [class.negative]="metrica.trend === 'down'">
+          {{ metrica.change }}
+        </span>
+      </div>
+
+      <p class="metric-label">{{ metrica.label }}</p>
+      <h2>{{ metrica.value }}</h2>
+    </article>
+  </section>
+
+  <section class="content-grid">
+    <article class="panel sales-panel">
+      <div class="panel-header">
+        <div>
+          <p class="panel-kicker">Comparativo</p>
+          <h2>Ingresos mensuales</h2>
+        </div>
+        <span class="badge success">+18.4% vs. mes anterior</span>
+      </div>
+
+      <div class="chart-wrapper">
+        <div class="y-axis">
+          <span>90K</span>
+          <span>60K</span>
+          <span>30K</span>
+          <span>0</span>
+        </div>
+
+        <div class="bars-container">
+          <div *ngFor="let punto of ingresosMensuales" class="bar-group">
+            <div class="bar-track">
+              <span class="bar-fill" [style.height.%]="punto.sales"></span>
+            </div>
+            <small>{{ punto.month }}</small>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel distribution-panel">
+      <div class="panel-header">
+        <div>
+          <p class="panel-kicker">Distribución</p>
+          <h2>Tipos de paquete</h2>
+        </div>
+      </div>
+
+      <div class="distribution-list">
+        <div *ngFor="let item of distribucion" class="distribution-item">
+          <div class="distribution-row">
+            <span>{{ item.name }}</span>
+            <strong>{{ item.total }}</strong>
+          </div>
+          <div class="progress-bar">
+            <span [style.width.%]="item.value" [ngClass]="item.color"></span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="panel table-panel">
+    <div class="table-header">
+      <div>
+        <p class="panel-kicker">Administración</p>
+        <h2>Reservas registradas</h2>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="abrirDialogNuevo()">
+        + Ingresar reserva
+      </button>
+    </div>
+
+    <div class="table-toolbar">
+      <input
+        type="text"
+        [(ngModel)]="filtro"
+        placeholder="Buscar por código, cliente, destino, paquete o estado"
+        aria-label="Buscar reservas"
+      />
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Cliente</th>
+            <th>Destino</th>
+            <th>Fecha</th>
+            <th>Paquete</th>
+            <th>Estado</th>
+            <th>Monto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reporte of reportesFiltrados">
+            <td>{{ reporte.codigo }}</td>
+            <td>{{ reporte.cliente }}</td>
+            <td>{{ reporte.destino }}</td>
+            <td>{{ reporte.fecha }}</td>
+            <td>{{ reporte.paquete }}</td>
+            <td>
+              <span class="status" [ngClass]="reporte.estado.toLowerCase()">
+                {{ reporte.estado }}
+              </span>
+            </td>
+            <td>{{ reporte.monto | currency:'USD':'symbol':'1.0-0' }}</td>
+            <td>
+              <div class="action-buttons">
+                <button type="button" class="action-btn modify" (click)="abrirDialog(reporte)">
+                  Modificar
+                </button>
+                <button type="button" class="action-btn delete" (click)="eliminarReporte(reporte.id)">
+                  Eliminar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="bottom-grid">
+    <article class="panel table-panel">
+      <div class="panel-header">
+        <div>
+          <p class="panel-kicker">Ranking</p>
+          <h2>Top destinos</h2>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Destino</th>
+            <th>Ventas</th>
+            <th>Reservas</th>
+            <th>Crecimiento</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let destino of topDestinos">
+            <td>{{ destino.destino }}</td>
+            <td>{{ destino.ventas }}</td>
+            <td>{{ destino.reservas }}</td>
+            <td class="growth positive">{{ destino.crecimiento }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="panel activity-panel">
+      <div class="panel-header">
+        <div>
+          <p class="panel-kicker">Actividad</p>
+          <h2>Reportes recientes</h2>
+        </div>
+      </div>
+
+      <ul class="activity-list">
+        <li *ngFor="let actividad of actividades">
+          <div class="activity-dot"></div>
+          <div class="activity-content">
+            <strong>{{ actividad.titulo }}</strong>
+            <span>{{ actividad.detalle }}</span>
+          </div>
+          <time>{{ actividad.hora }}</time>
+        </li>
+      </ul>
+    </article>
+  </section>
+</section>
+
+<app-dialog-reporte
+  *ngIf="dialogAbierto"
+  [reporte]="reporteSeleccionado"
+  (cerrar)="cerrarDialog()"
+  (guardar)="guardarReporte($event)"
+></app-dialog-reporte>
